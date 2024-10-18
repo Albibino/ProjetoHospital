@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.caixadetexto{
+    width: 800px;
+    height: 400px;
+    border: 2px solid black;
+    padding: 60px;
+    border-radius: 20px;
+    background: #ddd;
+    animation-name: MostraCaixadetexto;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    text-align: center;
+}
+
+#texto1{
+    text-align: center;
+}
+
+@keyframes MostraCaixadetexto{
+    0%{
+        width: 0px;
+        height: 0px;
+    }
+    100%{
+        width: 800px;
+        height: 400px;
+    }
+}
+
+
