@@ -12,7 +12,7 @@
 <body>
     <script src="js/script.js"></script>
     <main>
-        <div class="container">
+        <div class="containersup">
             <div class="textosup">
                 <h1>Avaliação de Serviço</h1>
                 <p>Por favor, avalie nosso serviço:</p>
@@ -20,7 +20,7 @@
             <div class="slider-container">
                 <input type="range" min="0" max="10" value="" id="slider">
                 <div class="value-display">
-                    <p>Nota: <span id="sliderValue"></span></p>
+                    <p><span id="sliderValue"></span></p>
                 </div>
             </div class="caixainf">
                 <div class="button-container">
@@ -30,7 +30,9 @@
         </div>
     </main>
     <footer>
-        
+        <div class="footer-content">
+            <p>&copy; 2024 William Wollert. Todos os direitos reservados.</p>
+        </div>
     </footer>
 </body>
 </html>

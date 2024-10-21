@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     function enviarValor() {
         const valor = slider.value;
         alert('Nota enviada: ' + valor);
-
+        limparSlider();
     }
 
     btnEnviar.addEventListener('click', enviarValor);
