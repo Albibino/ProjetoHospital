@@ -1,4 +1,7 @@
 --host=localhost port=5432 dbname=projetohospital user=postgres password=xxxxxxx
+--dbname = projetohospital
+--PostgreSQL 17
+
 
 CREATE TABLE avaliacoes (
     id integer PRIMARY KEY;
