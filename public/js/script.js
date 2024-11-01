@@ -1,6 +1,8 @@
 window.addEventListener('DOMContentLoaded', (event) => {
     const slider = document.getElementById('slider');
     const sliderValue = document.getElementById('sliderValue');
+    const notaInput = document.getElementById('notaInput');
+    const btnLimpar = document.getElementById('btnLimpar');
 
     function updateSlider() {
         const value = parseInt(slider.value);
@@ -9,6 +11,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         const percentage = ((value - min) / (max - min)) * 100;
 
         sliderValue.textContent = value;
+        notaInput.value = value; 
 
         if (value > 5) {
             slider.style.background = `linear-gradient(to right, #4CAF50 0%, #4CAF50 ${percentage}%, #ddd ${percentage}%, #ddd 100%)`;
@@ -29,12 +32,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 
     btnLimpar.addEventListener('click', limparSlider);
-
-    function enviarValor() {
-        const valor = slider.value;
-        alert('Nota enviada: ' + valor);
-        limparSlider();
-    }
-
-    btnEnviar.addEventListener('click', enviarValor);
 });
