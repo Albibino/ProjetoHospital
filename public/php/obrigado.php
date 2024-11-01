@@ -7,6 +7,11 @@
     <meta name="keywords" content="HRAV, CSS, HTML, PHP, SQL, UNIDAVI, BSN">
     <title>Obrigado - HRAV</title>
     <link rel="stylesheet" type="text/css" href="../css/styles2.css">
+    <script>
+        setTimeout(function() {
+            window.location.href = '../index.php';
+        }, 9500);
+    </script>
 </head>
 <body>
     <main>

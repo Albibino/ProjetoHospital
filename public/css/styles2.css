@@ -21,12 +21,12 @@ body {
     padding: 20px;
     box-sizing: border-box;
     opacity: 0;
-    animation: expandirCaixa 1s forwards;
+    animation: expandirCaixa 9s;
 }
 
 #titulo, #texto {
     opacity: 0;
-    animation: aparecerTexto 1s forwards;
+    animation: aparecerTexto 6s;
 }
 
 #titulo {
@@ -34,7 +34,7 @@ body {
     margin: 0;
     font-size: 24px;
     color: #4CAF50;
-    animation-delay: 2s;
+    animation-delay: 1.5s;
 }
 
 #texto {
@@ -42,7 +42,7 @@ body {
     margin-top: 10px;
     font-size: 16px;
     color: #333;
-    animation-delay: 2.2s;
+    animation-delay: 1.5s;
 }
 
 @keyframes expandirCaixa {
@@ -51,18 +51,34 @@ body {
         width: 0px;
         opacity: 0;
     }
-    100% {
+    22%{
         height: 150px;
         width: 600px;
         opacity: 1;
     }
+    77% {
+        height: 150px;
+        width: 600px;
+        opacity: 1;
+    }
+    100%{
+        height: 0px;
+        width: 0px;
+        opacity: 0;
+    }
 }
 
 @keyframes aparecerTexto {
-    from {
+    0% {
         opacity: 0;
     }
-    to {
+    22%{
         opacity: 1;
+    }
+    77%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
     }
 }
