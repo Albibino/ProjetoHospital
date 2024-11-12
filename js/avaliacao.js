@@ -41,6 +41,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function exibirFooter (){
+        const container = document.getElementById('footer');
+        container.innerHTML = `
+                <div class="footer-content">
+                    <p>&copy; 2024 William Wollert. Todos os direitos reservados.</p>
+                </div>
+        `;
+    }
+
     function enviarResposta(questaoId, resposta) {
         fetch('index.php?action=processar_resposta', {
             method: 'POST',
@@ -63,6 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
     carregarQuestao();
+    exibirFooter();
 });

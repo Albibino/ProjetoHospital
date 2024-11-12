@@ -12,5 +12,7 @@
         </div>
     </main>
     <script src="js/avaliacao.js"></script>
+    <footer id="footer">
+    </footer>
 </body>
 </html>
