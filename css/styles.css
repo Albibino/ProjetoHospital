@@ -51,7 +51,7 @@ input[type="range"]::-moz-range-thumb {
     cursor: pointer;
 }
 
-.textosup{
+.textosup {
     animation: MostraTextoSuperior;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
@@ -110,74 +110,59 @@ footer p {
 }
 
 @keyframes ExpandeSlider {
-
-    0%{
+    0% {
         width: 0%;
         background: #4CAF50;
         border-radius: 0px;
     }
-
-    100%{
+    100% {
         width: 100%;
         background-color: #ddd;
         border-radius: 40px;
     }
-    
 }
 
-@keyframes MostraTextoSuperior{
-
-    0%{
+@keyframes MostraTextoSuperior {
+    0% {
         opacity: 0%;
         transform: translateY(100px);
     }
-
-    50%{
+    50% {
         opacity: 0%;
-        transform: translateY(50px)
+        transform: translateY(50px);
     }
-
-    100%{
+    100% {
         opacity: 100%;
         transform: translateY(0px);
     }
-
 }
 
-@keyframes MostraTextoInferior{
-
-    0%{
+@keyframes MostraTextoInferior {
+    0% {
         opacity: 0%;
         transform: translateY(-150px);
     }
-
-    50%{
+    50% {
         opacity: 0%;
         transform: translateY(-100px);
     }
-
-    100%{
+    100% {
         opacity: 100%;
         transform: translateY(0px);
     }
-
 }
 
-@keyframes MostraTextoValor{
-
-    0%{
+@keyframes MostraTextoValor {
+    0% {
         opacity: 0%;
         transform: translateY(-50px);
     }
-
-    50%{
+    50% {
         opacity: 0%;
         transform: translateY(-20px);
     }
-
-    100%{
+    100% {
         opacity: 100%;
         transform: translateY(0px);
     }
-
 }
