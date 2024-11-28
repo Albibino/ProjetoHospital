@@ -12,6 +12,12 @@ switch ($action) {
     case 'processar_resposta':
         $controller->processarResposta();
         break;
+    case 'exibir_formulario_cadastro':
+        $controller->exibirFormularioCadastro();
+        break;
+    case 'salvar_questao':
+        $controller->salvarQuestao();
+        break;
     case 'obrigado':
         $controller->exibirObrigado();
         break;

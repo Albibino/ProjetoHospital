@@ -4,14 +4,15 @@ class AvaliacaoModel {
 
     public function __construct() {
         $config = include('config/database.php');
-
+    
         $conn_string = "host={$config['host']} port={$config['port']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}";
-        $this->dbconn = pg_connect($conn_string);
-
+        $this->dbconn = @pg_connect($conn_string);
+    
         if (!$this->dbconn) {
-            die("Erro: Não foi possível conectar ao banco de dados.");
+            throw new Exception("Não foi possível conectar ao banco de dados.");
         }
     }
+    
 
     public function getQuestao($id) {
         $query = "SELECT * FROM questoes WHERE id = $1";
@@ -21,8 +22,22 @@ class AvaliacaoModel {
 
     public function salvarResposta($questao_id, $resposta) {
         $query = "INSERT INTO respostas (questao_id, resposta) VALUES ($1, $2)";
-        $result = pg_query_params($this->dbconn, $query, array($questao_id, $resposta));
+        $result = @pg_query_params($this->dbconn, $query, array($questao_id, $resposta));
+    
+        if ($result === false) {
+            throw new Exception("Erro ao salvar a resposta no banco de dados.");
+        }
+    
         return $result;
+    }
+
+    public function adicionarQuestao($texto) {
+        $query = "INSERT INTO questoes (texto) VALUES ($1)";
+        $result = pg_query_params($this->dbconn, $query, [$texto]);
+    
+        if (!$result) {
+            throw new Exception('Erro ao inserir a questão no banco de dados.');
+        }
     }
 
     public function getTotalQuestoes() {
