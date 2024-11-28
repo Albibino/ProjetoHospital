@@ -44,7 +44,7 @@ class AvaliacaoController {
         }
     
         if (!isset($_SESSION['questao_atual'])) {
-            http_response_code(400); 
+            http_response_code(400);
             echo json_encode(['erro' => 'Sessão expirada ou inválida.']);
             exit;
         }
@@ -77,6 +77,7 @@ class AvaliacaoController {
         }
     }
     
+    
     public function processarResposta() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
@@ -96,14 +97,34 @@ class AvaliacaoController {
             exit;
         }
     
-        if (!isset($dados['resposta']) || !filter_var($dados['resposta'], FILTER_VALIDATE_INT)) {
-            http_response_code(400);
-            echo json_encode(['erro' => 'Resposta inválida.']);
+        $questao_id = $dados['questao_id'];
+        $resposta = isset($dados['resposta']) ? trim($dados['resposta']) : null;
+    
+        $questao = $this->model->getQuestao($questao_id);
+    
+        if (!$questao) {
+            http_response_code(404);
+            echo json_encode(['erro' => 'Questão não encontrada.']);
             exit;
         }
     
-        $questao_id = $dados['questao_id'];
-        $resposta = $dados['resposta'];
+        if ($questao['tipo'] === 'slider') {
+            if (!is_numeric($resposta) || $resposta < 0 || $resposta > 10) {
+                http_response_code(400);
+                echo json_encode(['erro' => 'Resposta inválida para pergunta do tipo slider.']);
+                exit;
+            }
+        } elseif ($questao['tipo'] === 'texto') {
+            if (strlen($resposta) > 255) {
+                http_response_code(400);
+                echo json_encode(['erro' => 'Resposta de texto muito longa.']);
+                exit;
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['erro' => 'Tipo de pergunta desconhecido.']);
+            exit;
+        }
     
         try {
             $this->model->salvarResposta($questao_id, $resposta);
@@ -115,7 +136,6 @@ class AvaliacaoController {
         }
     
         $_SESSION['questao_atual']++;
-    
         if ($_SESSION['questao_atual'] > $_SESSION['total_questoes']) {
             echo json_encode(['fim' => true]);
             exit;
@@ -123,15 +143,12 @@ class AvaliacaoController {
     
         try {
             $proxima_questao = $this->model->getQuestao($_SESSION['questao_atual']);
-    
-            if ($proxima_questao === false) {
+            if (!$proxima_questao) {
                 http_response_code(404);
                 echo json_encode(['erro' => 'Próxima questão não encontrada.']);
                 exit;
             }
-    
             echo json_encode($proxima_questao);
-    
         } catch (Exception $e) {
             error_log($e->getMessage());
             http_response_code(500);
@@ -139,6 +156,7 @@ class AvaliacaoController {
             exit;
         }
     }
+    
 
     public function exibirFormularioCadastro() {
         include 'views/cadastrar_questao.php';
@@ -146,29 +164,29 @@ class AvaliacaoController {
     
     public function salvarQuestao() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405); // Método não permitido
+            http_response_code(405);
             echo json_encode(['erro' => 'Método não permitido.']);
             exit;
         }
     
         if (!isset($_POST['texto']) || empty(trim($_POST['texto']))) {
-            http_response_code(400); // Bad Request
+            http_response_code(400);
             echo json_encode(['erro' => 'Texto da questão é obrigatório.']);
             exit;
         }
     
         $texto = trim($_POST['texto']);
+        $tipo = isset($_POST['tipo']) && in_array($_POST['tipo'], ['slider', 'texto']) ? $_POST['tipo'] : 'slider';
     
         try {
-            $this->model->adicionarQuestao($texto);
+            $this->model->adicionarQuestao($texto, $tipo);
             echo json_encode(['sucesso' => 'Questão cadastrada com sucesso.']);
         } catch (Exception $e) {
             error_log($e->getMessage());
-            http_response_code(500); // Internal Server Error
+            http_response_code(500);
             echo json_encode(['erro' => 'Erro ao salvar a questão.']);
         }
     }
-    
     
     public function exibirObrigado() {
         include 'views/obrigado.php';

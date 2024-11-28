@@ -15,25 +15,30 @@ class AvaliacaoModel {
     
 
     public function getQuestao($id) {
-        $query = "SELECT * FROM questoes WHERE id = $1";
-        $result = pg_query_params($this->dbconn, $query, array($id));
+        $query = "SELECT id, texto, tipo FROM questoes WHERE id = $1";
+        $result = pg_query_params($this->dbconn, $query, [$id]);
+    
+        if (!$result || pg_num_rows($result) === 0) {
+            return false;
+        }
+    
         return pg_fetch_assoc($result);
     }
+    
 
     public function salvarResposta($questao_id, $resposta) {
         $query = "INSERT INTO respostas (questao_id, resposta) VALUES ($1, $2)";
-        $result = @pg_query_params($this->dbconn, $query, array($questao_id, $resposta));
+        $result = pg_query_params($this->dbconn, $query, [$questao_id, $resposta]);
     
-        if ($result === false) {
-            throw new Exception("Erro ao salvar a resposta no banco de dados.");
+        if (!$result) {
+            throw new Exception('Erro ao salvar a resposta no banco de dados.');
         }
-    
-        return $result;
     }
+    
 
-    public function adicionarQuestao($texto) {
-        $query = "INSERT INTO questoes (texto) VALUES ($1)";
-        $result = pg_query_params($this->dbconn, $query, [$texto]);
+    public function adicionarQuestao($texto, $tipo = 'slider') {
+        $query = "INSERT INTO questoes (texto, tipo) VALUES ($1, $2)";
+        $result = pg_query_params($this->dbconn, $query, [$texto, $tipo]);
     
         if (!$result) {
             throw new Exception('Erro ao inserir a questão no banco de dados.');

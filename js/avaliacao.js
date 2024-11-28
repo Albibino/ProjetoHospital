@@ -15,38 +15,60 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function exibirQuestao(questao) {
         const container = document.getElementById('avaliacao-container');
-        container.innerHTML = `
+        let questionHTML = `
             <div class="containersup">
                 <div class="textosup">
                     <h1>Avaliação de Serviço</h1>
                     <p>${questao.texto}</p>
                 </div>
+        `;
+    
+        if (questao.tipo === 'slider') {
+            questionHTML += `
                 <div class="slider-container">
                     <input type="range" min="0" max="10" value="0" id="slider">
                     <div class="value-display">
                         <p><span id="sliderValue">0</span></p>
                     </div>
                 </div>
+            `;
+        } else if (questao.tipo === 'texto') {
+            questionHTML += `
+                <div class="text-container">
+                    <textarea id="textoResposta" placeholder="Digite sua resposta (opcional)..."></textarea>
+                </div>
+            `;
+        }
+    
+        questionHTML += `
                 <div class="button-container">
-                    <button id="btnEnviar">Proxima pergunta</button>
+                    <button id="btnEnviar">Próxima pergunta</button>
                 </div>
             </div>
         `;
-
-        const slider = document.getElementById('slider');
-        const output = document.getElementById('sliderValue');
-
-        atualizarCorSlider(slider);
-
-        slider.oninput = function() {
-            output.innerHTML = this.value;
-            atualizarCorSlider(this);
+    
+        container.innerHTML = questionHTML;
+    
+        if (questao.tipo === 'slider') {
+            const slider = document.getElementById('slider');
+            const output = document.getElementById('sliderValue');
+            atualizarCorSlider(slider);
+    
+            slider.oninput = function() {
+                output.innerHTML = this.value;
+                atualizarCorSlider(this);
+            };
         }
-
+    
         document.getElementById('btnEnviar').onclick = function() {
-            enviarResposta(questao.id, slider.value);
-        }
+            const resposta = questao.tipo === 'slider'
+                ? document.getElementById('slider').value
+                : document.getElementById('textoResposta').value;
+    
+            enviarResposta(questao.id, resposta);
+        };
     }
+    
 
     function interpolarCores(corInicio, corFim, porcentagem) {
         corInicio = corInicio.replace('#', '');

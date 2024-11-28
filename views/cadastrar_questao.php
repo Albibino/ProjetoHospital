@@ -8,15 +8,22 @@
 <body>
     <main>
         <h1>Cadastrar Nova Questão</h1>
-        <form id="formCadastrarQuestao" method="POST" action="index.php?action=salvar_questao">
-            <div>
-                <label for="texto">Texto da Questão:</label>
-                <textarea id="texto" name="texto" rows="4" cols="50" required></textarea>
-            </div>
-            <div>
-                <button type="submit">Cadastrar Questão</button>
-            </div>
-        </form>
+            <form id="formCadastrarQuestao" method="POST" action="index.php?action=salvar_questao">
+                <div>
+                    <label for="texto">Texto da Questão:</label>
+                    <textarea id="texto" name="texto" rows="4" cols="50" required></textarea>
+                </div>
+                <div>
+                    <label for="tipo">Tipo da Questão:</label>
+                    <select id="tipo" name="tipo">
+                        <option value="slider">Controle Deslizante</option>
+                        <option value="texto">Texto Opcional</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit">Cadastrar Questão</button>
+                </div>
+            </form>
         <div id="mensagem"></div>
     </main>
     <script>
