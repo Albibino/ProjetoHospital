@@ -31,6 +31,7 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <a href="index.php?action=painel_admin" class="admin-back-btn">Voltar ao Painel</a>
     </main>
 </body>
 </html>

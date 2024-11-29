@@ -24,6 +24,7 @@
                     <button type="submit">Cadastrar Questão</button>
                 </div>
             </form>
+            <a href="index.php?action=painel_admin" class="admin-back-btn">Voltar ao Painel</a>
         <div id="mensagem"></div>
     </main>
     <script>

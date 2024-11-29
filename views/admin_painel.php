@@ -11,6 +11,7 @@
         <div class="admin-actions">
             <a href="index.php?action=exibir_formulario_cadastro" class="admin-btn">Cadastrar Pergunta</a>
             <a href="index.php?action=listar_questoes" class="admin-btn">Listar Perguntas</a>
+            <a href="index.php?action=logout" class="logout-btn">Sair</a>
         </div>
     </main>
 </body>
