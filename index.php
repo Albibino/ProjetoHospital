@@ -41,7 +41,10 @@ switch ($action) {
         break;
     case 'logout':
         $controller->logout();
-        break;        
+        break;
+    case 'painel_admin':
+        $controller->exibirPainelAdmin();
+        break;
     case 'exibir_formulario':
     default: 
         $controller->exibirFormulario();

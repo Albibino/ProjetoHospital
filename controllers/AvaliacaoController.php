@@ -10,15 +10,12 @@ class AvaliacaoController {
             'cookie_samesite' => 'Strict',
             'use_strict_mode' => true,
         ];
-    
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
             $session_options['cookie_secure'] = true;
         }
-    
         if (!isset($_SESSION)) {
             session_start($session_options);
         }
-    
         $this->model = new AvaliacaoModel();
     }
     
@@ -32,7 +29,6 @@ class AvaliacaoController {
                 'cookie_secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'
             ]);
         }
-    
         $_SESSION['questao_atual'] = 1;
         $_SESSION['total_questoes'] = $this->model->getTotalQuestoes();
         include 'views/avaliacao_form.php';
@@ -42,33 +38,26 @@ class AvaliacaoController {
         if (!isset($_SESSION)) {
             session_start();
         }
-    
         if (!isset($_SESSION['questao_atual'])) {
             http_response_code(400);
             echo json_encode(['erro' => 'Sessão expirada ou inválida.']);
             exit;
         }
-    
         $questao_id = $_SESSION['questao_atual'];
-    
         if (!filter_var($questao_id, FILTER_VALIDATE_INT)) {
             http_response_code(400);
             echo json_encode(['erro' => 'ID da questão inválido.']);
             exit;
         }
-    
         try {
             $questao = $this->model->getQuestao($questao_id);
-    
             if ($questao === false) {
                 http_response_code(404);
                 echo json_encode(['erro' => 'Questão não encontrada.']);
                 exit;
             }
-    
             header('Content-Type: application/json');
             echo json_encode($questao);
-    
         } catch (Exception $e) {
             error_log($e->getMessage());
             http_response_code(500);
@@ -76,7 +65,6 @@ class AvaliacaoController {
             exit;
         }
     }
-    
     
     public function processarResposta() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -294,29 +282,33 @@ class AvaliacaoController {
             echo 'Método não permitido.';
             exit;
         }
-    
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
-    
         if (empty($username) || empty($password)) {
             echo 'Usuário e senha são obrigatórios.';
             exit;
         }
-    
-        $query = "SELECT * FROM usuarios WHERE username = $1 AND password = $2";
-        $result = pg_query_params($this->model->getDbConnection(), $query, [$username, $password]);
-        $usuario = pg_fetch_assoc($result);
-    
-        if ($usuario) {
-            session_start();
-            $_SESSION['admin'] = true; 
-            header('Location: index.php?action=listar_questoes');
-            exit;
-        } else {
-            echo 'Usuário ou senha inválidos.';
-            exit;
+        try {
+            $query = "SELECT * FROM usuarios WHERE username = $1 AND password = $2";
+            $result = pg_query_params($this->model->getDbConnection(), $query, [$username, $password]);
+            $usuario = pg_fetch_assoc($result);
+            if ($usuario) {
+                session_start();
+                $_SESSION['admin'] = true;
+                $_SESSION['username'] = $usuario['username'];
+                header('Location: index.php?action=painel_admin');
+                exit;
+            } else {
+                echo 'Usuário ou senha inválidos.';
+                exit;
+            }
+        } catch (Exception $e) {
+            error_log("Erro ao processar login: " . $e->getMessage());
+            http_response_code(500);
+            echo 'Erro interno. Por favor, tente novamente mais tarde.';
         }
     }
+    
     
     private function verificarAutenticacao() {
         if (empty($_SESSION['admin'])) {
@@ -324,5 +316,9 @@ class AvaliacaoController {
             exit;
         }
     }
-    
+
+    public function exibirPainelAdmin() {
+        $this->verificarAutenticacao();
+        include 'views/admin_painel.php';
+    } 
 }

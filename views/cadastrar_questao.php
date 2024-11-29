@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Questão - HRAV</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles3.css">
 </head>
 <body>
     <main>
