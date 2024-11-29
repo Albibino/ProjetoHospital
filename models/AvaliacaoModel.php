@@ -4,7 +4,6 @@ class AvaliacaoModel {
 
     public function __construct() {
         $config = include('config/database.php');
-    
         $conn_string = "host={$config['host']} port={$config['port']} dbname={$config['dbname']} user={$config['user']} password={$config['password']}";
         $this->dbconn = @pg_connect($conn_string);
         if (!$this->dbconn) {
@@ -19,11 +18,9 @@ class AvaliacaoModel {
     public function getQuestao($id) {
         $query = "SELECT * FROM questoes WHERE id = $1";
         $result = pg_query_params($this->dbconn, $query, [$id]);
-    
         if (!$result || pg_num_rows($result) === 0) {
             return false;
         }
-    
         return pg_fetch_assoc($result);
     }
     

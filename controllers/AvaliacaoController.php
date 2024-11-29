@@ -19,7 +19,6 @@ class AvaliacaoController {
         $this->model = new AvaliacaoModel();
     }
     
-
     public function exibirFormulario() {
         if (!isset($_SESSION)) {
             session_start([
@@ -308,8 +307,7 @@ class AvaliacaoController {
             echo 'Erro interno. Por favor, tente novamente mais tarde.';
         }
     }
-    
-    
+
     private function verificarAutenticacao() {
         if (empty($_SESSION['admin'])) {
             header('Location: index.php?action=exibir_login');

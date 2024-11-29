@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('avaliacao-container');
         let questionHTML = `
             <div class="containersup">
-                <div class="textosup">
-                    <h1>Avaliação de Serviço</h1>
+            <h1>Avaliação de Serviço</h1>
+                <div class="textosup"> 
                     <p>${questao.texto}</p>
                 </div>
         `;

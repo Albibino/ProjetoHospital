@@ -1,4 +1,5 @@
 <?php
+
 require_once 'controllers/AvaliacaoController.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'exibir_formulario';
