@@ -21,8 +21,29 @@ switch ($action) {
     case 'obrigado':
         $controller->exibirObrigado();
         break;
+    case 'listar_questoes':
+        $controller->listarQuestoes();
+        break;
+    case 'editar_questao':
+        $controller->editarQuestao();
+        break;  
+    case 'atualizar_questao':
+        $controller->atualizarQuestao();
+        break;      
+    case 'deletar_questao':
+        $controller->deletarQuestao();
+        break;
+    case 'exibir_login':
+        $controller->exibirLogin();
+        break;
+    case 'login':
+        $controller->processarLogin();
+        break;
+    case 'logout':
+        $controller->logout();
+        break;        
     case 'exibir_formulario':
-    default:
+    default: 
         $controller->exibirFormulario();
         break;
 }

@@ -34,6 +34,15 @@ CREATE TABLE IF NOT EXISTS public.setor
     CONSTRAINT setor_pkey PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS public.usuarios
+(
+    id serial NOT NULL,
+    username character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT usuarios_pkey PRIMARY KEY (id),
+    CONSTRAINT usuarios_username_key UNIQUE (username)
+);
+
 ALTER TABLE IF EXISTS public.respostas
     ADD CONSTRAINT respostas_questao_id_fkey FOREIGN KEY (questao_id)
     REFERENCES public.questoes (id) MATCH SIMPLE
@@ -41,3 +50,6 @@ ALTER TABLE IF EXISTS public.respostas
     ON DELETE NO ACTION;
 
 END;
+
+insert into usuarios (id,username,password)
+values (1,'admin','1234')
