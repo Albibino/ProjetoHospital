@@ -5,11 +5,11 @@
     <title>Obrigado - HRAV</title>
     <link rel="stylesheet" type="text/css" href="css/styles2.css">
     <script>
-        const totalTime = 9500; // Tempo total de redirecionamento (em milissegundos)
+        const totalTime = 9500;
 
         function atualizarBarra() {
             const progressBar = document.getElementById('progress-bar');
-            const interval = 100; // Atualizações a cada 100ms
+            const interval = 100;
             let elapsedTime = 0;
 
             const timer = setInterval(() => {
@@ -24,7 +24,7 @@
             }, interval);
         }
 
-        window.onload = atualizarBarra; // Iniciar a barra de progresso ao carregar a página
+        window.onload = atualizarBarra;
     </script>
 </head>
 <body>
@@ -34,13 +34,10 @@
         <h1 id="titulo">Agradecemos sua Avaliação!</h1>
         <p id="texto">O Hospital Regional Alto Vale (HRAV) agradece sua resposta e ela é muito importante para nós, pois nos ajuda a melhorar continuamente nossos serviços.</p>
     </div>
-    <!-- Barra de progresso -->
     <div class="progress-container">
         <div id="progress-bar"></div>
     </div>
 </div>
-
-
         </div>
     </main>
 </body>
