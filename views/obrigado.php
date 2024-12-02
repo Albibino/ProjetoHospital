@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt"> 
 <head>
     <meta charset="UTF-8">
     <title>Obrigado - HRAV</title>
